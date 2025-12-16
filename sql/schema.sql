@@ -13,4 +13,4 @@ create table dish (
     id int primary key,
     name varchar(255) not null,
     dish_type dish_type not null
-)
+);
