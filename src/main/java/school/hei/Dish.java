@@ -1,18 +1,19 @@
 package main.java.school.hei;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Dish {
     private Integer id;
     private String name;
     private DishTypeEnum dishType;
-    private List<Ingredient> inredients;
+    private List<Ingredient> ingredients;
 
-    public Dish(Integer id, String name, DishTypeEnum dishType, List<Ingredient> inredients) {
+    public Dish(Integer id, String name, DishTypeEnum dishType, List<Ingredient> ingredients) {
         this.id = id;
         this.name = name;
         this.dishType = dishType;
-        this.inredients = inredients;
+        this.ingredients = ingredients;
     }
 
     public Integer getId() {
@@ -39,12 +40,12 @@ public class Dish {
         this.dishType = dishType;
     }
 
-    public List<Ingredient> getInredients() {
-        return inredients;
+    public List<Ingredient> getIngredients() {
+        return ingredients;
     }
 
-    public void setInredients(List<Ingredient> inredients) {
-        this.inredients = inredients;
+    public void setInredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     @Override
@@ -56,7 +57,7 @@ public class Dish {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, dishType, inredients);
+        return Objects.hash(id, name, dishType, ingredients);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class Dish {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", dishType=" + dishType +
-                ", inredients=" + inredients +
+                ", ingredients=" + ingredients +
                 '}';
     }
 
