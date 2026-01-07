@@ -44,7 +44,7 @@ public class Dish {
         return ingredients;
     }
 
-    public void setInredients(List<Ingredient> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
