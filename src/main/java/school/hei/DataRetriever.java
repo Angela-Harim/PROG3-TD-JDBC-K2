@@ -1,4 +1,4 @@
-package school.hei;
+package java.school.hei;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,11 +28,10 @@ public class DataRetriever {
             if (resultSet.next()) {
                 Dish dish = new Dish(
                 dish.setId(resultSet.getInt("dish_id")),
-                dish.setName(resultSet.getString("dish_name")),
-                dish.setDishType(
-                        DishTypeEnum.valueOf(resultSet.getString("dish_type"))
+                dish.Name(resultSet.getString("dish_name")),
+                dish.setDishType(DishTypeEnum.valueOf(resultSet.getString("dish_type"))),
+                dish.setIngredients(findIngredientByDishId(id))
                 );
-                dish.setIngredients(findIngredientByDishId(id));
                 return dish;
             }
 
