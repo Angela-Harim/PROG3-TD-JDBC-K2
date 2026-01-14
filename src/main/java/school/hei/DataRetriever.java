@@ -1,4 +1,4 @@
-package main.java.school.hei;
+package school.hei;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,9 +26,9 @@ public class DataRetriever {
             ResultSet resultSet = prepareStatement.executeQuery();
 
             if (resultSet.next()) {
-                Dish dish = new Dish();
-                dish.setId(resultSet.getInt("dish_id"));
-                dish.setName(resultSet.getString("dish_name"));
+                Dish dish = new Dish(
+                dish.setId(resultSet.getInt("dish_id")),
+                dish.setName(resultSet.getString("dish_name")),
                 dish.setDishType(
                         DishTypeEnum.valueOf(resultSet.getString("dish_type"))
                 );

@@ -1,4 +1,4 @@
-package main.java.school.hei;
+package school.hei;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

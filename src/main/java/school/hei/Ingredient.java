@@ -1,4 +1,4 @@
-package main.java.school.hei;
+package school.hei;
 
 import java.util.Objects;
 
@@ -8,15 +8,20 @@ public class Ingredient {
     private CategoryEnum category;
     private double price;
     private Dish dish;
+    private Double requiredQuantity; // quantité pour le plat
 
-    public Ingredient(Integer id, String name, CategoryEnum category, double price, Dish dish) {
+
+
+    public Ingredient(Integer id, String name, CategoryEnum category, double price, Dish dish, Double requiredQuantity) {
 
         this.id = id;
         this.name = name;
         this.category = category;
         this.price = price;
         this.dish = dish;
+        this.requiredQuantity = requiredQuantity;
     }
+
 
     public Integer getId() {
         return id;
@@ -57,6 +62,10 @@ public class Ingredient {
     public void setDish(Dish dish) {
         this.dish = dish;
     }
+
+    public Double getRequiredQuantity() { return requiredQuantity; }
+
+    public void setRequiredQuantity(Double requiredQuantity) { this.requiredQuantity = requiredQuantity; }
 
     @Override
     public boolean equals(Object o) {

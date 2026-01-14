@@ -1,4 +1,4 @@
-package main.java.school.hei;
+package school.hei;
 
 public enum DishTypeEnum {
     STARTER, MAIN, DESSERT

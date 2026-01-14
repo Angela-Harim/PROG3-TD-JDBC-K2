@@ -1,4 +1,4 @@
-package main.java.school.hei;
+package school.hei;
 
 import java.util.List;
 import java.util.Objects;
@@ -52,7 +52,7 @@ public class Dish {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Dish dish = (Dish) o;
-        return Objects.equals(id, dish.id) && Objects.equals(name, dish.name) && dishType == dish.dishType && Objects.equals(inredients, dish.inredients);
+        return Objects.equals(id, dish.id) && Objects.equals(name, dish.name) && dishType == dish.dishType && Objects.equals(ingredients, dish.ingredients);
     }
 
     @Override
@@ -71,10 +71,21 @@ public class Dish {
     }
 
     public double getDishCost() {
-        double totalPrice = 0.0;
-        for (int i = 0; i < ingredients.size(); i++) {
-            totalPrice = totalPrice * ingredients.get(i).getPrice();
+        double totalCost = 0.0;
+
+        if (ingredients != null) {
+            for (Ingredient ingredient : ingredients) {
+                if (ingredient != null && ingredient.getPrice() != 0 && ingredient.getRequiredQuantity() != null) {
+                    totalCost += ingredient.getPrice() * ingredient.getRequiredQuantity();
+                } else {
+                    throw new RuntimeException("Ingrédient incomplet : " + ingredient);
+                }
+            }
         }
-        return totalPrice;
+
+        return totalCost;
     }
+
 }
+
+
