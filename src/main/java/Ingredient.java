@@ -1,5 +1,6 @@
 package main.java;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Ingredient {
@@ -7,6 +8,8 @@ public class Ingredient {
     private String name;
     private CategoryEnum category;
     private Double price;
+    private List<StockMovement> stockMovementList;
+
 
     public Ingredient() {
     }
@@ -43,16 +46,24 @@ public class Ingredient {
         this.price = price;
     }
 
+    public List<StockMovement> getStockMovementList() {
+        return stockMovementList;
+    }
+
+    public void setStockMovementList(List<StockMovement> stockMovementList) {
+        this.stockMovementList = stockMovementList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Ingredient that = (Ingredient) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && category == that.category && Objects.equals(price, that.price);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && category == that.category && Objects.equals(price, that.price) && Objects.equals(stockMovementList, that.stockMovementList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, category, price);
+        return Objects.hash(id, name, category, price, stockMovementList);
     }
 
     @Override
@@ -62,74 +73,7 @@ public class Ingredient {
                 ", name='" + name + '\'' +
                 ", category=" + category +
                 ", price=" + price +
-                '}';
-    }
-}
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public CategoryEnum getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryEnum category) {
-        this.category = category;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public Dish getDish() {
-        return dish;
-    }
-
-    public void setDish(Dish dish) {
-        this.dish = dish;
-    }
-
-    public Double getRequiredQuantity() { return requiredQuantity; }
-
-    public void setRequiredQuantity(Double requiredQuantity) { this.requiredQuantity = requiredQuantity; }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Ingredient that = (Ingredient) o;
-        return Double.compare(price, that.price) == 0 && Objects.equals(id, that.id) && Objects.equals(name, that.name) && category == that.category && Objects.equals(dish, that.dish);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, category, price, dish);
-    }
-
-    @Override
-    public String toString() {
-        return "Ingredient{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", category=" + category +
-                ", price=" + price +
+                ", stockMovementList=" + stockMovementList +
                 '}';
     }
 }

@@ -248,4 +248,57 @@ public class DataRetriever {
             ps.executeQuery();
         }
     }
+
+    Ingredient saveIngredient(Ingredient toSave) {
+        Connection connection = new DBConnection().getConnection();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    """
+                    INSERT INTO ingredient(id, name)
+                    VALUES (?, ?)
+                    ON CONFLICT (id) DO NOTHING
+                    """
+            );
+
+            ps.setInt(1, toSave.getId());
+            ps.setString(2, toSave.getName());
+            ps.executeUpdate();
+
+            saveStockMovements(toSave, connection);
+
+            return toSave;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void saveStockMovements(Ingredient ingredient, Connection connection)
+            throws SQLException {
+
+        for (StockMovement movement : ingredient.getStockMovementList()) {
+
+            PreparedStatement ps = connection.prepareStatement(
+                    """
+                    INSERT INTO stock_movement(
+                        id, ingredient_id, quantity, unit, movement_datetime
+                    )
+                    VALUES (?, ?, ?, ?, ?)
+                    ON CONFLICT (id) DO NOTHING
+                    """
+            );
+
+            ps.setInt(1, movement.getId());
+            ps.setInt(2, ingredient.getId());
+            ps.setDouble(3, movement.getQuantity());
+            ps.setString(4, "KG");
+            ps.setTimestamp(5,
+                    java.sql.Timestamp.from(movement.getDatetime())
+            );
+
+            ps.executeUpdate();
+        }
+    }
+
 }
