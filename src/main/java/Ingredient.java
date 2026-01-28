@@ -1,4 +1,4 @@
-package school.hei;
+package main.java;
 
 import java.util.Objects;
 
