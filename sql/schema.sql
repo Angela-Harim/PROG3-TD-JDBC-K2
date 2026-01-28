@@ -46,3 +46,15 @@ create table if not exists dish_ingredient
     foreign key (id_ingredient) references ingredient (id),
     foreign key (id_dish) references dish (id)
     );
+
+CREATE TABLE stock_movement (
+    id SERIAL PRIMARY KEY,
+     ingredient_id INT NOT NULL,
+    quantity DOUBLE PRECISION NOT NULL,
+    unit VARCHAR(10) NOT NULL,
+    movement_datetime TIMESTAMP NOT NULL,
+
+    CONSTRAINT fk_ingredient
+    FOREIGN KEY (ingredient_id)
+    REFERENCES ingredient(id)
+);
