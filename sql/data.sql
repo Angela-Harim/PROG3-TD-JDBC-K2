@@ -1,13 +1,14 @@
-insert into ingredient (id, name, price, category, id_dish) values
-            (1, "Laitu", 800.00, "VEGETABLE", 1),
-            (2, "Tomate", 600.00, "VEGETABLE", 1),
-            (3, "Poulet", 4500.00, "ANIMAL", 2),
-            (4, Chocolat, 3000.00, "OTHER", 4 ),
-            (5, Beurre, 2500.00, "DAIRY", 4);
+insert into dish (id, name, dish_type, selling_price)
+values (1, 'Salaide fraîche', 'STARTER', 3500.0),
+       (2, 'Poulet grillé', 'MAIN', 12000.0),
+       (3, 'Riz aux légumes', 'MAIN', null),
+       (4, 'Gâteau au chocolat ', 'DESSERT', 8000.0),
+       (5, 'Salade de fruits', 'DESSERT', null);
 
-insert into dish (id, name, dish_type) values
-             (1, "Salade fraîche", "START"),
-             (2, "Poulet grillé", "MAIN"),
-             (3, "Riz au légumes", "MAIN"),
-             (4, "Gâteau au chocolat", "DESSERT"),
-             (5, "Salade de fruits", "DESSERT")
+
+insert into ingredient (id, name, category, price)
+values (1, 'Laitue', 'VEGETABLE', 800.0),
+       (2, 'Tomate', 'VEGETABLE', 600.0),
+       (3, 'Poulet', 'ANIMAL', 4500.0),
+       (4, 'Chocolat ', 'OTHER', 3000.0),
+       (5, 'Beurre', 'DAIRY', 2500.0);
