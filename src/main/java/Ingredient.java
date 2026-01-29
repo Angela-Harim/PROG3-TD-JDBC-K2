@@ -1,5 +1,6 @@
 package main.java;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 
@@ -52,6 +53,30 @@ public class Ingredient {
 
     public void setStockMovementList(List<StockMovement> stockMovementList) {
         this.stockMovementList = stockMovementList;
+    }
+
+    public StockValue getStockValueAt(Instant t) {
+        if (stockMovementList == null) return null;
+        List<StockMovement> stockMovements = stockMovementList.stream()
+                .filter(sm -> !sm.getCreationDatetime().isAfter(t))
+                .toList();
+
+        double movementIn = stockMovements.stream()
+                .filter(sm -> sm.getType() == MovementTypeEnum.IN)
+                .mapToDouble(sm -> sm.getValue().getQuantity())
+                .sum();
+
+        double movementOut = stockMovements.stream()
+                .filter(sm -> sm.getType() == MovementTypeEnum.OUT)
+                .mapToDouble(sm -> sm.getValue().getQuantity())
+                .sum();
+
+        StockValue stockValue = new StockValue();
+        stockValue.setQuantity(movementIn - movementOut);
+        stockValue.setUnit(unitSet.keySet().stream().findFirst().get());
+
+        return stockValue;
+
     }
 
     @Override

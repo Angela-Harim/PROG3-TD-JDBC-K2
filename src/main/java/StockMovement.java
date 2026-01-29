@@ -2,16 +2,15 @@ package main.java;
 
 
 import java.time.Instant;
-import java.util.List;
 import java.util.Objects;
 
 public class StockMovement {
     private Integer id;
     private StockValue value;
-    MouvementTypeEnum type;
+    MovementTypeEnum type;
     private Instant creationDatetime;
 
-    public StockMovement(Integer id, StockValue value, MouvementTypeEnum type, Instant creationDatetime) {
+    public StockMovement(Integer id, StockValue value, MovementTypeEnum type, Instant creationDatetime) {
         this.id = id;
         this.value = value;
         this.type = type;
@@ -34,11 +33,11 @@ public class StockMovement {
         this.value = value;
     }
 
-    public MouvementTypeEnum getType() {
+    public MovementTypeEnum getType() {
         return type;
     }
 
-    public void setType(MouvementTypeEnum type) {
+    public void setType(MovementTypeEnum type) {
         this.type = type;
     }
 
