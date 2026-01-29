@@ -6,15 +6,11 @@ import java.util.Objects;
 
 public class StockMovement {
     private Integer id;
-    private StockValue value;
-    MovementTypeEnum type;
+    private MovementTypeEnum type;
     private Instant creationDatetime;
+    private StockValue value;
 
-    public StockMovement(Integer id, StockValue value, MovementTypeEnum type, Instant creationDatetime) {
-        this.id = id;
-        this.value = value;
-        this.type = type;
-        this.creationDatetime = creationDatetime;
+    public StockMovement() {
     }
 
     public Integer getId() {
@@ -23,14 +19,6 @@ public class StockMovement {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public StockValue getValue() {
-        return value;
-    }
-
-    public void setValue(StockValue value) {
-        this.value = value;
     }
 
     public MovementTypeEnum getType() {
@@ -49,25 +37,32 @@ public class StockMovement {
         this.creationDatetime = creationDatetime;
     }
 
+    public StockValue getValue() {
+        return value;
+    }
+
+    public void setValue(StockValue value) {
+        this.value = value;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        StockMovement that = (StockMovement) o;
-        return Objects.equals(id, that.id) && Objects.equals(value, that.value) && Objects.equals(type, that.type) && Objects.equals(creationDatetime, that.creationDatetime);
+        if (!(o instanceof StockMovement that)) return false;
+        return Objects.equals(id, that.id)  && type == that.type && Objects.equals(creationDatetime, that.creationDatetime) && Objects.equals(value, that.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, value, type, creationDatetime);
+        return Objects.hash(id, type, creationDatetime, value);
     }
 
     @Override
     public String toString() {
         return "StockMovement{" +
                 "id=" + id +
-                ", value=" + value +
                 ", type=" + type +
                 ", creationDatetime=" + creationDatetime +
+                ", value=" + value +
                 '}';
     }
 }
