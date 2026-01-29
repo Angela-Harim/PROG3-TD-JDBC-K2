@@ -9,16 +9,19 @@ public class Order {
     private String reference;
     private Instant creationDatetime;
     private List<DishOrder> dishOrders;
+    private PaymentStatusEnum paymentStatus;
+
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Order order)) return false;
-        return Objects.equals(id, order.id) && Objects.equals(reference, order.reference) && Objects.equals(creationDatetime, order.creationDatetime) && Objects.equals(dishOrders, order.dishOrders);
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return Objects.equals(id, order.id) && Objects.equals(reference, order.reference) && Objects.equals(creationDatetime, order.creationDatetime) && Objects.equals(dishOrders, order.dishOrders) && paymentStatus == order.paymentStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, reference, creationDatetime, dishOrders);
+        return Objects.hash(id, reference, creationDatetime, dishOrders, paymentStatus);
     }
 
     public Integer getId() {
@@ -52,5 +55,9 @@ public class Order {
     public void setDishOrders(List<DishOrder> dishOrders) {
         this.dishOrders = dishOrders;
     }
+
+    public PaymentStatusEnum getPaymentStatus() { return paymentStatus; }
+
+    public void setPaymentStatus(PaymentStatusEnum paymentStatus) { this.paymentStatus = paymentStatus; }
 }
 

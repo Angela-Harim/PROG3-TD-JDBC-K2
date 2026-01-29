@@ -1,6 +1,7 @@
 package main.java;
 
 import java.sql.*;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +51,7 @@ public class DataRetriever {
 
         try (Connection conn = new DBConnection().getConnection()) {
             conn.setAutoCommit(false);
-            Integer ingredientId;
+            int ingredientId;
             try (PreparedStatement ps = conn.prepareStatement(upsertIngredientSql)) {
                 if (toSave.getId() != null) {
                     ps.setInt(1, toSave.getId());
@@ -175,7 +176,7 @@ public class DataRetriever {
 
         try (Connection conn = new DBConnection().getConnection()) {
             conn.setAutoCommit(false);
-            Integer dishId;
+            int dishId;
             try (PreparedStatement ps = conn.prepareStatement(upsertDishSql)) {
                 if (toSave.getId() != null) {
                     ps.setInt(1, toSave.getId());
@@ -318,6 +319,61 @@ public class DataRetriever {
             }
             dbConnection.closeConnection(connection);
             return dishIngredients;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    Sale createSaleFrom(Order order) {
+        if (order.getPaymentStatus() != PaymentStatusEnum.PAID) {
+            throw new RuntimeException(  "Impossible de créer une vente à partir d'une commande non payée" );
+        }
+
+        Connection connection = new DBConnection().getConnection();
+
+        try {
+
+            PreparedStatement insertSale = connection.prepareStatement(
+                    """
+                    INSERT INTO sale(creation_datetime)
+                    VALUES (?)
+                    RETURNING id
+                    """
+            );
+
+            insertSale.setTimestamp(
+                    1,
+                    java.sql.Timestamp.from(Instant.now())
+            );
+
+            ResultSet rs = insertSale.executeQuery();
+            if (!rs.next()) {
+                return null;
+            }
+
+            int saleId = rs.getInt("id");
+
+
+            PreparedStatement linkOrderToSale = connection.prepareStatement(
+                    """
+                    UPDATE "order"
+                    SET id_sale = ?
+                    WHERE id = ?
+                      AND id_sale IS NULL
+                    """
+            );
+
+            linkOrderToSale.setInt(1, saleId);
+            linkOrderToSale.setInt(2, order.getId());
+            linkOrderToSale.executeUpdate();
+
+            return new Sale(
+                    saleId,
+                    Instant.now(),
+                    order
+            );
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

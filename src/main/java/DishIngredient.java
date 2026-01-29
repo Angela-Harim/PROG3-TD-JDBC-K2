@@ -1,60 +1,51 @@
 package main.java;
 
-import java.util.Objects;
+
 
 public class DishIngredient {
-    private Integer id;
-    private double quantity_required;
-    private String unit;
+    private Dish dish;
+    private Ingredient ingredient;
+    private Double quantity;
+    private Unit unit;
 
-    public DishIngredient(Integer id, double quantity_required, String unit) {
-        this.id = id;
-        this.quantity_required = quantity_required;
-        this.unit = unit;
+    public Ingredient getIngredient() {
+        return ingredient;
     }
 
-    public Integer getId() {
-        return id;
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Double getQuantity() {
+        return quantity;
     }
 
-    public double getQuantity_required() {
-        return quantity_required;
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
     }
 
-    public void setQuantity_required(double quantity_required) {
-        this.quantity_required = quantity_required;
-    }
-
-    public String getUnit() {
+    public Unit getUnit() {
         return unit;
     }
 
-    public void setUnit(String unit) {
+    public void setUnit(Unit unit) {
         this.unit = unit;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        DishIngredient that = (DishIngredient) o;
-        return Double.compare(quantity_required, that.quantity_required) == 0 && Objects.equals(id, that.id) && Objects.equals(unit, that.unit);
+    public Dish getDish() {
+        return dish;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, quantity_required, unit);
+    public void setDish(Dish dish) {
+        this.dish = dish;
     }
 
     @Override
     public String toString() {
         return "DishIngredient{" +
-                "id=" + id +
-                ", quantity_required=" + quantity_required +
-                ", unit='" + unit + '\'' +
+                "ingredient=" + ingredient +
+                ", quantity=" + quantity +
+                ", unit=" + unit +
                 '}';
     }
 }

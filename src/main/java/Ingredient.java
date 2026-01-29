@@ -2,7 +2,10 @@ package main.java;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 
 public class Ingredient {
     private Integer id;
@@ -12,7 +15,7 @@ public class Ingredient {
     private List<StockMovement> stockMovementList;
 
 
-    public Ingredient() {
+    public Ingredient(int idIngredient, String name, CategoryEnum category, Double price, List<StockMovement> stockMovementsByIngredientId) {
     }
 
     public Integer getId() {
@@ -57,18 +60,22 @@ public class Ingredient {
 
     public StockValue getStockValueAt(Instant t) {
         if (stockMovementList == null) return null;
+        Map<Unit, List<StockMovement>> unitSet = stockMovementList.stream()
+                .collect(Collectors.groupingBy(stockMovement -> stockMovement.getValue().getUnit()));
+        if (unitSet.keySet().size() > 1) {
+            throw new RuntimeException("Multiple unit found and not handle for conversion");
+        }
+
         List<StockMovement> stockMovements = stockMovementList.stream()
-                .filter(sm -> !sm.getCreationDatetime().isAfter(t))
+                .filter(stockMovement -> !stockMovement.getCreationDatetime().isAfter(t))
                 .toList();
-
         double movementIn = stockMovements.stream()
-                .filter(sm -> sm.getType() == MovementTypeEnum.IN)
-                .mapToDouble(sm -> sm.getValue().getQuantity())
+                .filter(stockMovement -> stockMovement.getType().equals(MovementTypeEnum.IN))
+                .flatMapToDouble(stockMovement -> DoubleStream.of(stockMovement.getValue().getQuantity()))
                 .sum();
-
         double movementOut = stockMovements.stream()
-                .filter(sm -> sm.getType() == MovementTypeEnum.OUT)
-                .mapToDouble(sm -> sm.getValue().getQuantity())
+                .filter(stockMovement -> stockMovement.getType().equals(MovementTypeEnum.OUT))
+                .flatMapToDouble(stockMovement -> DoubleStream.of(stockMovement.getValue().getQuantity()))
                 .sum();
 
         StockValue stockValue = new StockValue();
@@ -76,7 +83,6 @@ public class Ingredient {
         stockValue.setUnit(unitSet.keySet().stream().findFirst().get());
 
         return stockValue;
-
     }
 
     @Override

@@ -58,3 +58,13 @@ CREATE TABLE stock_movement (
     FOREIGN KEY (ingredient_id)
     REFERENCES ingredient(id)
 );
+
+CREATE TYPE payment_status_enum AS ENUM ('PAID', 'UNPAID');
+
+CREATE TABLE sale (
+    id SERIAL PRIMARY KEY,
+    creation_datetime TIMESTAMP NOT NULL
+);
+
+
+
