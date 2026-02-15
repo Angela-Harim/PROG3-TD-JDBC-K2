@@ -23,3 +23,13 @@ CREATE TABLE dish_ingredient (
                                  FOREIGN KEY (dish_id) REFERENCES dish(id),
                                  FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
 );
+
+select unit,
+       sum(case
+               when stock_movement.type = 'IN' then quantity
+               when stock_movement.type = 'OUT' then  -1 * quantity
+               else 0 END) as actual_quantity
+from stock_movement
+WHERE ingredient_id = ? and unit='KG'
+  and creation_datetime <= ?
+group by unit;

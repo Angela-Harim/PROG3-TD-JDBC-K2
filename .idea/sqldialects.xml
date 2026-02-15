@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/c5800ec2-601b-4576-b232-f6b90e92190c/console.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/sql/ new_schema.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/sql/data.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/sql/db.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/sql/schema.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/DataRetriever.java" dialect="GenericSQL" />
   </component>

@@ -1,18 +1,21 @@
-package main.java;
+
+import java.sql.Connection;
+
+import static java.time.Instant.now;
 
 public class Main {
     public static void main(String[] args) {
         DataRetriever dataRetriever = new DataRetriever();
-        Dish saladeVerte = dataRetriever.findDishById(1);
-        System.out.println(saladeVerte);
+        //Dish saladeVerte = dataRetriever.findDishById(1);
+        //System.out.println(saladeVerte);
 
-        Dish poulet = dataRetriever.findDishById(2);
-        System.out.println(poulet);
+        //Dish poulet = dataRetriever.findDishById(2);
+        //System.out.println(poulet);
 
-        Dish rizLegume = dataRetriever.findDishById(3);
-        rizLegume.setPrice(100.0);
-        Dish newRizLegume = dataRetriever.saveDish(rizLegume);
-        System.out.println(newRizLegume); // Should not throw exception
+        //Dish rizLegume = dataRetriever.findDishById(3);
+        //rizLegume.setPrice(100.0);
+        //Dish newRizLegume = dataRetriever.saveDish(rizLegume);
+        //System.out.println(newRizLegume); // Should not throw exception
 
 
 //        Dish rizLegumeAgain = dataRetriever.findDishById(3);
@@ -20,8 +23,12 @@ public class Main {
 //        Dish savedNewRizLegume = dataRetriever.saveDish(rizLegume);
 //        System.out.println(savedNewRizLegume); // Should throw exception
 
-        Ingredient laitue = dataRetriever.findIngredientById(1);
-        System.out.println(laitue);
+      //  Ingredient laitue = dataRetriever.findIngredientById(1);
+       // System.out.println(laitue);
+
+        Ingredient ingredientOne = dataRetriever.findIngredientById(3);
+        System.out.println(ingredientOne.getStockValueAt(now()));
+        System.out.println(dataRetriever.getStockValueAt(now(), 2));
 
     }
 }

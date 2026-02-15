@@ -1,5 +1,3 @@
-package main.java;
-
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
@@ -8,21 +6,7 @@ public class Order {
     private Integer id;
     private String reference;
     private Instant creationDatetime;
-    private List<DishOrder> dishOrders;
-    private PaymentStatusEnum paymentStatus;
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
-        return Objects.equals(id, order.id) && Objects.equals(reference, order.reference) && Objects.equals(creationDatetime, order.creationDatetime) && Objects.equals(dishOrders, order.dishOrders) && paymentStatus == order.paymentStatus;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, reference, creationDatetime, dishOrders, paymentStatus);
-    }
+    private List<DishOrder> dishOrderList;
 
     public Integer getId() {
         return id;
@@ -48,16 +32,50 @@ public class Order {
         this.creationDatetime = creationDatetime;
     }
 
-    public List<DishOrder> getDishOrders() {
-        return dishOrders;
+    public List<DishOrder> getDishOrderList() {
+        return dishOrderList;
     }
 
-    public void setDishOrders(List<DishOrder> dishOrders) {
-        this.dishOrders = dishOrders;
+    public void setDishOrderList(List<DishOrder> dishOrderList) {
+        this.dishOrderList = dishOrderList;
     }
 
-    public PaymentStatusEnum getPaymentStatus() { return paymentStatus; }
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", totalAmountWithoutVat=" + getTotalAmountWithoutVat() +
+                ", totalAmountWithVat=" + getTotalAmountWithVat() +
+                ", reference='" + reference + '\'' +
+                ", creationDatetime=" + creationDatetime +
+                ", dishOrderList=" + dishOrderList +
+                '}';
+    }
 
-    public void setPaymentStatus(PaymentStatusEnum paymentStatus) { this.paymentStatus = paymentStatus; }
+    Double getTotalAmountWithoutVat() {
+        if (dishOrderList == null) return null;
+        double amount = 0.0;
+        for (DishOrder dishOrder : dishOrderList) {
+            amount += dishOrder.getQuantity() * dishOrder.getDish().getPrice();
+        }
+        return amount;
+    }
+
+    Double getTotalAmountWithVat() {
+        return getTotalAmountWithoutVat() == null ? null : getTotalAmountWithoutVat() * 1.2;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Order order)) return false;
+        return Objects.equals(id, order.id)
+                && Objects.equals(reference, order.reference)
+                && Objects.equals(creationDatetime, order.creationDatetime)
+                && Objects.equals(dishOrderList, order.dishOrderList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, reference, creationDatetime, dishOrderList);
+    }
 }
-

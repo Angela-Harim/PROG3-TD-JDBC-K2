@@ -1,6 +1,5 @@
 create type dish_type as enum ('STARTER', 'MAIN', 'DESSERT');
 
-
 create table dish
 (
     id        serial primary key,
@@ -65,6 +64,26 @@ CREATE TABLE sale (
     id SERIAL PRIMARY KEY,
     creation_datetime TIMESTAMP NOT NULL
 );
+create table if not exists "order"
+(
+    id                serial primary key,
+    reference         varchar(255),
+    creation_datetime timestamp without time zone
+);
 
+create table if not exists dish_order
+(
+    id       serial primary key,
+    id_order int references "order" (id),
+    id_dish  int references dish (id),
+    quantity int
+);
 
+alter table ingredient
+    add column if not exists initial_stock numeric(10, 2);
+
+create type movement_type as enum ('IN', 'OUT');
+
+alter table stock_movement
+    add column if not exists type movement_type;
 

@@ -1,4 +1,3 @@
-package main.java;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +5,7 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         try {
             String jdbcURL = System.getenv("JDBC_URL"); //
             String user = System.getenv("jdbc:postgresql://localhost:5432/mini_dish_db"); //mini_dish_db_manager
